@@ -1,0 +1,65 @@
+<html>
+<head>
+<title> SEARCH ARTICLE</title>
+
+<link rel="stylesheet" type="text/css" href="index.css">
+</head>
+
+<body>
+
+    <div class="container">
+    <h3><p>SEARCH ARTICLES</p></h3>
+
+    <p> <input class="bar" type="text" id="article"></p>
+    <button onclick="getpost()">check</button>
+   </div>
+
+   <div id="output"></div>
+
+   <div id="output1"></div>
+   <script>
+
+     function getpost(){
+      var articleName=document.getElementById('article').value;
+      if(articleName == "") {
+        alert("Provide article name to proceed..");
+      }
+      else
+      {
+      fetch('https://api.nytimes.com/svc/search/v2/articlesearch.json?q='+ articleName + '&api-key=ipE6DWbvQnhcEfM5lc3kJsHyIOAGN7pN')
+      .then((resp) => resp.json())
+        .then(function(resp) {
+        localStorage.setItem("jsonData",JSON.stringify(resp));
+        var data = localStorage.getItem('jsonData');
+        var jsonData = JSON.parse(data);
+         console.log(jsonData);
+        var articleabs="";
+
+        articleabs+="<ul>"
+       for (i = 0; i < jsonData.response.docs.length; i++) {
+       articleabs+="<p><b>ABSTRACT:</b></p>"
+       articleabs+="<li>" + jsonData.response.docs[i].abstract + "</li>";
+       articleabs+="<p><b>Lead Paragraph:</b></p>"
+       articleabs+= jsonData.response.docs[i].lead_paragraph;
+       articleabs+="<p><b>Link:</b></p>"
+        articleabs+='<a target="blank" href="' +jsonData.response.docs[i].web_url +'">' +jsonData.response.docs[i].headline.main + '</a>';
+      }
+      articleabs+="</ul>";
+
+   document.getElementById('output').innerHTML=articleabs;
+
+
+
+      })
+      .catch(function(){
+        document.getElementById("output").innerHTML="none";
+        alert("article not found...!!");
+
+      });
+
+    }
+  }
+ </script>
+</body>
+
+</html>

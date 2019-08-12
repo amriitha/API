@@ -1,0 +1,32 @@
+.container{
+  text-align:center;
+}
+.bar{
+  width:40%;
+  border:2px solid grey;
+  border-radius:4px;
+
+  outline:none;
+  padding:8px;
+  box-sizing:border-box;
+  margin:0 auto;
+}
+
+body {
+  background: #ffa07a;
+}
+button {
+  display: inline-block;
+  width:20%;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #dc143c;
+  border: none;
+  border-radius: 15px;
+
+}
